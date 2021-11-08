@@ -1,7 +1,22 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, VARCHAR;
 from sqlalchemy.orm import relationship
 
 from .database import Base
+
+class Region(Base):
+    __tablename__ = "regions"
+
+    region_id = Column(Integer, primary_key=True, index=False)
+    region_name = Column(String, unique=True, nullable=False)
+    countries = relationship("Country", back_populates="region")
+
+class Country(Base):
+    __tablename__ = "countries"
+
+    country_id = Column(String, primary_key=True, index=False)
+    country_name = Column(String)
+    region_id = Column(Integer, ForeignKey('regions.region_id'))
+    region = relationship("Region", back_populates="countries")
 
 class User(Base):
     __tablename__ = "users"
