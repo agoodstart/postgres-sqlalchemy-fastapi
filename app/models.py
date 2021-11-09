@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, VARCHAR;
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String;
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -16,24 +16,18 @@ class Country(Base):
     country_id = Column(String, primary_key=True, index=False)
     country_name = Column(String)
     region_id = Column(Integer, ForeignKey('regions.region_id'))
+    
     region = relationship("Region", back_populates="countries")
+    locations = relationship("Location", back_populates="country")
 
-class User(Base):
-    __tablename__ = "users"
+class Location(Base):
+    __tablename__ = "locations"
 
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
-    is_active = Column(Boolean, default=True)
+    location_id = Column(Integer, primary_key=True, index=False)
+    street_address = Column(String)
+    postal_code = Column(String)
+    city = Column(String)
+    state_province = Column(String)
 
-    items = relationship("Item", back_populates="owner")
-
-class Item(Base):
-    __tablename__ = "items"
-
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True)
-    description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
-
-    owner = relationship("User", back_populates="items")
+    country_id = Column(Integer, ForeignKey('countries.country_id'))
+    country = relationship("Country", back_populates="locations")

@@ -4,6 +4,17 @@
 from typing import List, Optional, Union, Dict
 
 from pydantic import BaseModel
+
+class LocationBase(BaseModel):
+    city: str
+    state_province: str
+    country_id: str
+
+# class LocationCreate(BaseModel):
+
+
+# class Location(LocationBase):
+
 class CountryBase(BaseModel):
     country_id: str
     country_name: str
@@ -27,32 +38,3 @@ class RegionCreate(BaseModel):
 class Region(RegionBase):
     class Config:
         orm_mode = True
-
-class ItemBase(BaseModel):
-    title: str
-    description: Optional[str] = None
-
-class ItemCreate(BaseModel):
-    pass
-
-class Item(ItemBase):
-    id: int
-    owner_id: int
-
-    class Config:
-        orm_mode = True
-
-class UserBase(BaseModel):
-    email: str
-
-class UserCreate(UserBase):
-    password: str
-
-class User(UserBase):
-    id: int
-    is_active: bool
-    items: List[Item] = []
-
-    class Config:
-        orm_mode = True
-
