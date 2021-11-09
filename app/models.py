@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float, Date;
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Float, Date, MetaData;
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import null
 
@@ -65,3 +65,6 @@ class Employee(Base):
     salary = Column(Float, nullable=False)
     manager_id = Column(Integer, ForeignKey('employees.employee_id'), nullable=True)
     department_id = Column(Integer, ForeignKey('departments.department_id'))
+
+class Manager(Employee):
+    employees = relationship(lambda: Employee, foreign_keys=lambda: Employee.manager_id)

@@ -24,6 +24,9 @@ class Employee(BaseConfig):
     manager_id: Optional[int] = None
     department_id: int
 
+class Manager(Employee):
+    employees: List[Employee]
+
 class Job(BaseConfig):
     job_id: int
     job_title: str

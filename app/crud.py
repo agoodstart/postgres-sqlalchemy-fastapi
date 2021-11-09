@@ -22,3 +22,9 @@ def get_jobs(db: Session):
 
 def get_employees(db: Session):
     return db.query(models.Employee).offset(0).limit(100).all()
+
+def get_managers(db: Session):
+    return db.query(models.Manager).filter(models.Manager.employees != None).all()
+
+def get_the_president(db: Session):
+    return db.query(models.Employee).filter(models.Employee.job_id == 4).first()

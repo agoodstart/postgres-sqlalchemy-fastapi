@@ -46,3 +46,13 @@ def read_jobs(db: Session = Depends(get_db)):
 def read_employees(db: Session = Depends(get_db)):
     employees = crud.get_employees(db)
     return employees
+
+@app.get('/managers/', response_model=List[schemas.Manager])
+def read_employees(db: Session = Depends(get_db)):
+    managers = crud.get_managers(db)
+    return managers
+
+@app.get('/employees/president/', response_model=schemas.Employee)
+def read_president(db: Session = Depends(get_db)):
+    president = crud.get_the_president(db)
+    return president
