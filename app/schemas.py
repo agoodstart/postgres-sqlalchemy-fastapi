@@ -8,6 +8,8 @@ from typing_extensions import Annotated
 from pydantic import BaseModel, Field
 from pydantic.networks import EmailStr
 
+from app.database import Base
+
 class BaseConfig(BaseModel):
     class Config:
         orm_mode = True
@@ -58,3 +60,12 @@ class Region(BaseConfig):
     region_id: int
     region_name: str
     countries: List[Country] = None
+
+class Joined(BaseConfig):
+    first_name: str
+    last_name: str
+    salary: float
+    job_title: str
+    manager_full_name: Optional[str] = None
+    department_name: str
+    current_location: str

@@ -17,6 +17,12 @@ def get_db():
     finally:
         db.close()
 
+@app.get('/')
+def read_all(db: Session = Depends(get_db)):
+    result = crud.get_all(db)
+
+    return result
+
 @app.get('/regions/', response_model=List[schemas.Region])
 def read_regions(db: Session = Depends(get_db)):
     regions = crud.get_regions(db)
