@@ -26,3 +26,23 @@ def read_regions(db: Session = Depends(get_db)):
 def read_countries(db: Session = Depends(get_db)):
     countries = crud.get_countries(db)
     return countries
+
+@app.get('/locations/', response_model=List[schemas.Location])
+def read_locations(db: Session = Depends(get_db)):
+    locations = crud.get_locations(db)
+    return locations
+
+@app.get('/departments/', response_model=List[schemas.Department])
+def read_departments(db: Session = Depends(get_db)):
+    departments = crud.get_departments(db)
+    return departments
+
+@app.get('/jobs/', response_model=List[schemas.Job])
+def read_jobs(db: Session = Depends(get_db)):
+    jobs = crud.get_jobs(db)
+    return jobs
+
+@app.get('/employees/', response_model=List[schemas.Employee])
+def read_employees(db: Session = Depends(get_db)):
+    employees = crud.get_employees(db)
+    return employees
