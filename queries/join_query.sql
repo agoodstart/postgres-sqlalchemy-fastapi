@@ -1,3 +1,4 @@
+CREATE VIEW joined_view AS
 WITH ceiled_salaries AS (
 	SELECT CEILING(salary / 10000) * 10000 AS ceiled_salary 
 	FROM employees

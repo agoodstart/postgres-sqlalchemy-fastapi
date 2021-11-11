@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session, aliased
 from sqlalchemy.sql import functions
 from . import schemas, models
+from .database import Mdata
 
 def get_region(db: Session, region_id):
     return db.query(models.Region).filter(models.Region.id == region_id).first()
@@ -29,6 +30,10 @@ def get_managers(db: Session):
 def get_the_president(db: Session):
     return db.query(models.Employee).filter(models.Employee.job_id == 4).first()
 
+def get_view(db: Session):
+    views = Mdata.tables['joined_view']
+    return db.query(views).all()
+
 def get_all(db: Session):
     emp = aliased(models.Employee)
     man = aliased(models.Employee)
@@ -38,7 +43,7 @@ def get_all(db: Session):
     countries = aliased(models.Country)
     regions = aliased(models.Region)
 
-    execution = db.query(
+    q = db.query(
         emp.first_name.label('first_name'),
         emp.last_name.label('last_name'),
         emp.salary.label('salary'),
@@ -54,4 +59,4 @@ def get_all(db: Session):
             join(regions, regions.region_id == countries.region_id).\
             order_by(emp.salary.desc()).\
             all()
-    return execution
+    return q
