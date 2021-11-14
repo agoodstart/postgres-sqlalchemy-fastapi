@@ -13,7 +13,5 @@ class Database(object):
         url = url.format(dbapi, user, pw, host, db_name)
         self.engine = create_engine(url)
 
-        print(url)
-
         if not database_exists(self.engine.url):
             print('Database not found')
