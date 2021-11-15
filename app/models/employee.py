@@ -3,6 +3,12 @@ from sqlalchemy.orm import relationship
 
 from app.database import Base
 
+from app.models.region import Region
+from app.models.location import Location
+from app.models.country import Country
+from app.models.job import Job
+from app.models.department import Department
+
 class Employee(Base):
     __tablename__ = "employees"
 
@@ -15,7 +21,9 @@ class Employee(Base):
     job_id = Column(Integer, ForeignKey('jobs.job_id'))
     salary = Column(Float, nullable=False)
     manager_id = Column(Integer, ForeignKey('employees.employee_id'), nullable=True)
+    # manager = relationship('Manager', backref='employees')
     department_id = Column(Integer, ForeignKey('departments.department_id'))
 
 class Manager(Employee):
+    # pass
     employees = relationship(lambda: Employee, foreign_keys=lambda: Employee.manager_id)
