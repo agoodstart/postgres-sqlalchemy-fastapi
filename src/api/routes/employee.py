@@ -11,25 +11,25 @@ employee_router = APIRouter(
 )
 
 @employee_router.get('/', status_code=200, response_model=List[Employee])
-def fetch_all(
+def all_employees(
     db: Session = Depends(deps.get_db),
 ) -> list:
     return employee.get_employees(db=db)
 
 @employee_router.get('/managers', status_code=200, response_model=List[Manager])
-def fetch_all(
+def all_managers(
     db: Session = Depends(deps.get_db),
 ) -> list:
     return employee.get_managers(db=db)
 
 @employee_router.get('/president', status_code=200, response_model=Employee)
-def fetch_all(
+def the_president(
     db: Session = Depends(deps.get_db),
 ) -> Any:
     return employee.get_the_president(db=db)
 
-@employee_router.get('/joined', status_code=200, response_model=List[Joined])
-def fetch_all(
+@employee_router.post('/joined', status_code=200, response_model=List[Joined])
+def view(
     db: Session = Depends(deps.get_db),
 ) -> Any:
     return employee.get_view(db=db)
