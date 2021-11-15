@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
-from . import models
+
+from app.models.department import Department
 
 def get_departments(db: Session):
-    return db.query(models.Department).offset(0).limit(100).all()
+    return db.query(Department).offset(0).limit(100).all()

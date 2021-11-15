@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session, aliased
-from sqlalchemy.sql import functions
-from . import schemas, models
+
+from app.models.location import Location
 
 def get_locations(db: Session):
-    return db.query(models.Location).offset(0).limit(100).all()
+    return db.query(Location).offset(0).limit(100).all()

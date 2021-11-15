@@ -4,7 +4,7 @@ from sqlalchemy.orm.session import Session
 
 from app.api import deps
 from app.crud import employee
-from app.schemas.employee import Employee, Manager
+from app.schemas.employee import Employee, Manager, Joined
 
 employee_router = APIRouter(
     prefix="/employees"
@@ -27,3 +27,9 @@ def fetch_all(
     db: Session = Depends(deps.get_db),
 ) -> Any:
     return employee.get_the_president(db=db)
+
+@employee_router.get('/joined', status_code=200, response_model=List[Joined])
+def fetch_all(
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    return employee.get_view(db=db)
