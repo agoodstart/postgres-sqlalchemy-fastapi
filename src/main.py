@@ -16,7 +16,6 @@ Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI(
     title="Fullstack",
-    openapi_url=None
 )
 
 origins = [

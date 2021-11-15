@@ -12,17 +12,17 @@ from api.models.department import Department
 class Employee(Base):
     __tablename__ = "employees"
 
-    employee_id = Column(Integer, primary_key=True, index=False)
+    employee_id = Column(Integer, primary_key=True, index=False, autoincrement=True)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
-    phone_number = Column(String)
+    phone_number = Column(String, nullable=True)
     hire_date = Column(Date)
-    job_id = Column(Integer, ForeignKey('jobs.job_id'))
-    salary = Column(Float, nullable=False)
+    job_id = Column(Integer, ForeignKey('jobs.job_id'), nullable=True)
+    salary = Column(Float, nullable=True)
     manager_id = Column(Integer, ForeignKey('employees.employee_id'), nullable=True)
     # manager = relationship('Manager', backref='employees')
-    department_id = Column(Integer, ForeignKey('departments.department_id'))
+    department_id = Column(Integer, ForeignKey('departments.department_id'), nullable=True)
 
 class Manager(Employee):
     # pass

@@ -1,5 +1,5 @@
 from datetime import date
-from typing import List, Optional
+from typing import List, Optional, Sequence
 
 from .base import BaseConfig
 
@@ -10,13 +10,25 @@ class Employee(BaseConfig):
     email: str
     phone_number: Optional[str] = None
     hire_date: date
-    job_id: int
-    salary: float
+    job_id: Optional[int] = None
+    salary: Optional[int] = None
     manager_id: Optional[int] = None
-    department_id: int
+    department_id: Optional[int] = None
+
 
 class Manager(Employee):
     employees: List[Employee]
+
+class EmployeeCreate(BaseConfig):
+    first_name: str
+    last_name: str
+    email: str
+    phone_number: Optional[str] = None
+    hire_date: date
+    job_id: Optional[int] = None
+    salary: Optional[int] = None
+    manager_id: Optional[int] = None
+    department_id: Optional[int] = None
 
 class Joined(BaseConfig):
     first_name: str

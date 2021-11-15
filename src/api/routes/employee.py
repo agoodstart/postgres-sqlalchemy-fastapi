@@ -1,10 +1,10 @@
-from typing import Any, List
-from fastapi import APIRouter, Depends
+from typing import Any, List, Optional
+from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm.session import Session
 
 from api import deps
 from api.crud import employee
-from api.schemas.employee import Employee, Manager, Joined
+from api.schemas.employee import Employee, Manager, Joined, EmployeeCreate
 
 employee_router = APIRouter(
     prefix="/employees"
@@ -28,8 +28,23 @@ def the_president(
 ) -> Any:
     return employee.get_the_president(db=db)
 
-@employee_router.post('/joined', status_code=200, response_model=List[Joined])
+@employee_router.get("/search/", status_code=200, response_model=List[Employee])
+def search_employees(
+    request: Request, db: Session = Depends(deps.get_db), query: Optional[str] = None
+) -> Any:
+    employees = employee.search_employee(query, db=db)
+    return employees
+
+
+@employee_router.get('/joined', status_code=200, response_model=List[Joined])
 def view(
     db: Session = Depends(deps.get_db),
 ) -> Any:
     return employee.get_view(db=db)
+
+@employee_router.post('/', status_code=201, response_model=Employee)
+def create_employee_entry(
+    entry_in: EmployeeCreate, db: Session = Depends(deps.get_db)
+):
+    new_employee = employee.create_new_employee_entry(entry_in, db)
+    return new_employee
