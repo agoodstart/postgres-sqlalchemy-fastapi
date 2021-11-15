@@ -1,25 +1,20 @@
-from fastapi import Depends, FastAPI, APIRouter, HTTPException
-from sqlalchemy.orm import Session
+from fastapi import FastAPI
 
-from . import crud, models, schemas
-from .database import SessionLocal, engine
+from app.db.base_model import Base
+from app.db.session import database
 
-from app import deps
+from app.api.router.employee import employee_router
 
-from app.api.root import root
-from app.api.employees import employees
-
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI(
     title="Fullstack"
 )
 
-app.include_router(root)
-app.include_router(employees)
+app.include_router(employee_router, prefix="/employees")
 
-api_router = APIRouter()
-@app.get('/', status_code=200)
-def read_all(db: Session = Depends(deps.get_db)):
-    views = crud.get_view(db)
-    return views
+@app.get("/", status_code=200)
+async def index():
+    return {
+        "msg": "Hi!"
+    }

@@ -4,7 +4,7 @@ from sqlalchemy_utils import database_exists
 
 class Database(object):
     def __init__(self):
-        self.params = config()
+        self.params = config.config()
 
     def create_db_connection(self, db_name):
         user, host, dbapi = self.params['user'], self.params['host'], self.params['dbapi']

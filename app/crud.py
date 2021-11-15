@@ -33,30 +33,3 @@ def get_the_president(db: Session):
 def get_view(db: Session):
     views = Mdata.tables['joined_view']
     return db.query(views).all()
-
-def get_all(db: Session):
-    emp = aliased(models.Employee)
-    man = aliased(models.Employee)
-    jobs = aliased(models.Job)
-    departments = aliased(models.Department)
-    locations = aliased(models.Location)
-    countries = aliased(models.Country)
-    regions = aliased(models.Region)
-
-    q = db.query(
-        emp.first_name.label('first_name'),
-        emp.last_name.label('last_name'),
-        emp.salary.label('salary'),
-        jobs.job_title.label('job_title'),
-        functions.concat(man.first_name, ' ', man.last_name).label("manager_full_name"),
-        departments.department_name.label('department_name'),
-        functions.concat(locations.city, ', ', countries.country_name, ', ', regions.region_name).label('current_location')).\
-            join(man, emp.manager_id == man.employee_id, isouter=True).\
-            join(jobs, jobs.job_id == emp.job_id).\
-            join(departments, departments.department_id == emp.department_id).\
-            join(locations, locations.location_id == departments.location_id).\
-            join(countries, countries.country_id == locations.country_id).\
-            join(regions, regions.region_id == countries.region_id).\
-            order_by(emp.salary.desc()).\
-            all()
-    return q
