@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li v-for="item in list" :key="item.path">
-        <a href="#" class="">{{ item.name }}</a>
+        <a href="#" class="btn btn-primary">{{ item.name }}</a>
     </li>
   </ul>
 </template>
