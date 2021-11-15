@@ -6,7 +6,9 @@ from app.api import deps
 from app.crud import employee
 from app.schemas.employee import Employee, Manager
 
-employee_router = APIRouter()
+employee_router = APIRouter(
+    prefix="/employees"
+)
 
 @employee_router.get('/', status_code=200, response_model=List[Employee])
 def fetch_all(

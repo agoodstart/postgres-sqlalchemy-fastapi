@@ -11,7 +11,7 @@ app = FastAPI(
     title="Fullstack"
 )
 
-app.include_router(employee_router, prefix="/employees")
+app.include_router(employee_router)
 
 @app.get("/", status_code=200)
 async def index():
