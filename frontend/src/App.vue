@@ -1,20 +1,20 @@
 <template>
-    <Navbar></Navbar>
-  <div class="container vh-100 d-flex justify-content-center align-items-center">
-
-    <router-view></router-view>
-  </div>
+    <Navbar />
+    <Main />
 </template>
 
 <style>
-
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100vh;
+}
+
+main {
+  height: 80%;
 }
 
 #nav {
@@ -33,12 +33,14 @@
 
 <script>
 // @ is an alias to /src
-import Navbar from '@/components/Navbar.vue'
+import Navbar from '@/components/navbar/Navbar.vue'
+import Main from '@/components/general/Main.vue'
 
 export default {
   // name: 'Navbar',
   components: {
-    Navbar
+    Navbar,
+    Main
   }
 }
 </script>

@@ -11,6 +11,8 @@ import router from './router'
 // fastapi
 axios.defaults.baseURL = 'http://localhost:8000/'
 
-createApp(App)
-    .use(router)
-    .mount('#app')
+let app = createApp(App)
+
+app.config.compilerOptions.isCustomElement = div => div === 'Fragment'
+app.use(router)
+app.mount("#app")
