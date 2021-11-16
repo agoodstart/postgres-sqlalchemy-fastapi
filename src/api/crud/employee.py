@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy.sql import functions
 
 from api.db.metadata import Mdata
 from api.models.employee import Employee, Manager
@@ -16,6 +17,13 @@ def get_the_president(db: Session):
 def get_view(db: Session):
     views = Mdata.tables['joined_view']
     return db.query(views).all()
+
+def get_random_employee(db: Session):
+    return db.query(Employee).order_by(functions.random()).first()
+
+def get_random_employee_from_view(db: Session):
+    views = Mdata.tables['joined_view']
+    return db.query(views).order_by(functions.random()).first()
 
 def search_employee(query: str, db: Session):
     list = []

@@ -33,8 +33,9 @@ class EmployeeCreate(BaseConfig):
 class Joined(BaseConfig):
     first_name: str
     last_name: str
-    salary: float
+    ceiled_salary: float
     job_title: str
     manager_full_name: Optional[str] = None
     department_name: str
     current_location: str
+    salary_count: int

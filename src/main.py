@@ -1,9 +1,18 @@
-from fastapi import FastAPI, Request
+from typing import Any
+from sqlalchemy.orm.session import Session
+
+from fastapi import FastAPI, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.routing import APIRouter
+from sqlalchemy.sql.selectable import Join
+
+from api import deps
 
 from api.db.base_model import Base
 from api.db.session import database
+
+from api.crud.employee import get_random_employee_from_view
+from api.schemas.employee import Joined
 
 from api.routes.employee import employee_router
 from api.routes.region import region_router
@@ -37,11 +46,8 @@ app.include_router(department_router)
 app.include_router(job_router)
 app.include_router(employee_router)
 
-@app.get("/", status_code=200)
-async def index(request: Request):
-    url_list = [
-        {'path': route.path, 'name': route.name.replace('_', ' ').capitalize()}
-        for route in request.app.routes
-            if 'all' in route.name or 'president' in route.name
-    ]
-    return url_list
+@app.get("/", status_code=200, response_model=Joined)
+async def index(
+    request: Request, db: Session = Depends(deps.get_db)
+) -> Any:
+    return get_random_employee_from_view(db)

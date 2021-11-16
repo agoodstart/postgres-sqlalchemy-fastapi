@@ -1,9 +1,12 @@
 <template>
-  <ul>
+  <!-- <ul>
     <li v-for="item in list" :key="item.path">
         <a href="#" class="btn btn-primary">{{ item.name }}</a>
     </li>
-  </ul>
+  </ul> -->
+  <div>
+    {{ employee }}
+  </div>
 </template>
 
 <script>
@@ -13,14 +16,14 @@ export default {
   name: 'Test',
   data() {
     return {
-      list: [],
+      employee: {},
     };
   },
   methods: {
     getList() {
       axios.get('/')
         .then((res) => {
-          this.list = res.data;
+          this.employee = res.data;
         })
         .catch((error) => {
           console.error(error);

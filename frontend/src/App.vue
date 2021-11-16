@@ -1,11 +1,9 @@
 <template>
     <Navbar></Navbar>
+  <div class="container vh-100 d-flex justify-content-center align-items-center">
 
     <router-view></router-view>
-  <!-- <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div> -->
+  </div>
 </template>
 
 <style>
