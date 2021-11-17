@@ -73,7 +73,7 @@ export default {
         });
     },
     doSearch(value) {
-      axios.get(`employees/search/?query=${value}`)
+      axios.get(`employees/search/?select=${this.select}&search=${value}`)
         .then(response => {
           this.employees = response.data;
       })

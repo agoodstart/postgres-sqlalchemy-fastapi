@@ -30,11 +30,10 @@ def the_president(
 
 @employee_router.get("/search/", status_code=200, response_model=List[EmployeeSmall])
 def search_employees(
-    request: Request, db: Session = Depends(deps.get_db), query: Optional[str] = None
+    request: Request, db: Session = Depends(deps.get_db), select: Optional[str] = None, search: Optional[str] = None
 ) -> Any:
-    employees = employee.filter_from_small_list(query, db=db)
+    employees = employee.filter_from_small_list(select=select, search=search ,db=db)
     return employees
-
 
 @employee_router.get('/joined', status_code=200, response_model=List[Joined])
 def view(

@@ -12,11 +12,11 @@ def get_employees_from_small_list(db: Session):
     els = Mdata.tables['employee_list_small']
     return db.query(els).all()
 
-def filter_from_small_list(query: str, db: Session):
+def filter_from_small_list(select: str, search, db: Session):
     els = Mdata.tables['employee_list_small']
     list = []
 
-    for query in db.query(els).filter(els.c.full_name.ilike(f"%{query}%")):
+    for query in db.query(els).filter(els.c[select].ilike(f"%{search}%")):
         list.append(query)
     return list
 
