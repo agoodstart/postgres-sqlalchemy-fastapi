@@ -13,6 +13,6 @@ axios.defaults.baseURL = 'http://localhost:8000/'
 
 let app = createApp(App)
 
-app.config.compilerOptions.isCustomElement = div => div === 'Fragment'
 app.use(router)
 app.mount("#app")
+// app.config.compilerOptions.isCustomElement = div => div === 'Fragment'

@@ -15,6 +15,10 @@ class Employee(BaseConfig):
     manager_id: Optional[int] = None
     department_id: Optional[int] = None
 
+class EmployeeSmall(BaseConfig):
+    employee_id: int
+    full_name: str
+    job_title: str
 
 class Manager(Employee):
     employees: List[Employee]

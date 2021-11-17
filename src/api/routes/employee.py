@@ -4,17 +4,17 @@ from sqlalchemy.orm.session import Session
 
 from api import deps
 from api.crud import employee
-from api.schemas.employee import Employee, Manager, Joined, EmployeeCreate
+from api.schemas.employee import Employee, Manager, Joined, EmployeeCreate, EmployeeSmall
 
 employee_router = APIRouter(
     prefix="/employees"
 )
 
-@employee_router.get('/', status_code=200, response_model=List[Employee])
-def all_employees(
+@employee_router.get('/', status_code=200, response_model=List[EmployeeSmall])
+def all_employees_small_list(
     db: Session = Depends(deps.get_db),
 ) -> list:
-    return employee.get_employees(db=db)
+    return employee.get_employees_from_small_list(db=db)
 
 @employee_router.get('/managers', status_code=200, response_model=List[Manager])
 def all_managers(
@@ -28,11 +28,11 @@ def the_president(
 ) -> Any:
     return employee.get_the_president(db=db)
 
-@employee_router.get("/search/", status_code=200, response_model=List[Employee])
+@employee_router.get("/search/", status_code=200, response_model=List[EmployeeSmall])
 def search_employees(
     request: Request, db: Session = Depends(deps.get_db), query: Optional[str] = None
 ) -> Any:
-    employees = employee.search_employee(query, db=db)
+    employees = employee.filter_from_small_list(query, db=db)
     return employees
 
 

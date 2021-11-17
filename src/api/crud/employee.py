@@ -8,6 +8,18 @@ from api.schemas.employee import EmployeeCreate
 def get_employees(db: Session):
     return db.query(Employee).offset(0).limit(100).all()
 
+def get_employees_from_small_list(db: Session):
+    els = Mdata.tables['employee_list_small']
+    return db.query(els).all()
+
+def filter_from_small_list(query: str, db: Session):
+    els = Mdata.tables['employee_list_small']
+    list = []
+
+    for query in db.query(els).filter(els.c.full_name.ilike(f"%{query}%")):
+        list.append(query)
+    return list
+
 def get_managers(db: Session):
     return db.query(Manager).filter(Manager.employees != None).all()
 

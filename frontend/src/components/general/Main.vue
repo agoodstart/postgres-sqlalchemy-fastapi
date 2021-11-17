@@ -5,7 +5,7 @@ import { computed } from '@vue/reactivity'
 export default {
     setup() {
         const route = useRoute()
-        const id = computed(() => route.name.toString().toLowerCase())
+        const id = computed(() => route.name)
         return {id}
     }
 }
