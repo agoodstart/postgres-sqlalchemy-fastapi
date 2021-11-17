@@ -7,11 +7,12 @@ from api.crud import country
 from api.schemas.country import Country
 
 country_router = APIRouter(
-    prefix="/countries"
+    prefix="/countries",
+    tags=["countries"]
 )
 
 @country_router.get('/', status_code=200, response_model=List[Country])
-def fetch_all(
+def all_countries(
     db: Session = Depends(deps.get_db),
 ) -> list:
     return country.get_countries(db=db)

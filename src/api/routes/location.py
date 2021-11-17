@@ -11,7 +11,7 @@ location_router = APIRouter(
 )
 
 @location_router.get('/', status_code=200, response_model=List[Location])
-def fetch_all(
+def all_locations(
     db: Session = Depends(deps.get_db),
 ) -> list:
     return location.get_locations(db=db)

@@ -11,7 +11,7 @@ department_router = APIRouter(
 )
 
 @department_router.get('/', status_code=200, response_model=List[Department])
-def fetch_all(
+def all_departments(
     db: Session = Depends(deps.get_db),
 ) -> list:
     return department.get_departments(db=db)

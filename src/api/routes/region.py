@@ -11,7 +11,7 @@ region_router = APIRouter(
 )
 
 @region_router.get('/', status_code=200, response_model=List[Region])
-def fetch_all(
+def all_regions(
     db: Session = Depends(deps.get_db),
 ) -> list:
     return region.get_regions(db=db)

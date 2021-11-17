@@ -11,7 +11,7 @@ job_router = APIRouter(
 )
 
 @job_router.get('/', status_code=200, response_model=List[Job])
-def fetch_all(
+def get_jobs(
     db: Session = Depends(deps.get_db),
 ) -> list:
     return job.get_jobs(db=db)
