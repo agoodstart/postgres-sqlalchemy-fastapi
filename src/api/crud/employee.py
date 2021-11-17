@@ -26,6 +26,9 @@ def get_managers(db: Session):
 def get_the_president(db: Session):
     return db.query(Employee).filter(Employee.job_id == 4).first()
 
+def get_employee_row(employee_id: int, db: Session):
+    return db.query(Employee).filter(Employee.employee_id == employee_id).first()
+
 def get_view(db: Session):
     views = Mdata.tables['joined_view']
     return db.query(views).all()

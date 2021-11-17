@@ -47,3 +47,10 @@ def create_employee_entry(
 ):
     new_employee = employee.create_new_employee_entry(entry_in, db)
     return new_employee
+
+@employee_router.get('/{employee_id}', status_code=200, response_model=Employee)
+def get_employee_by_id(
+    employee_id: int, db: Session = Depends(deps.get_db)
+):
+    print(employee_id)
+    return employee.get_employee_row(employee_id, db)
