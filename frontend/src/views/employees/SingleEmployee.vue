@@ -19,11 +19,11 @@
             <div class="collapse" id="collapseExample">
                   <div class="card card-body">
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                           <p>Tel nr</p>
                           <p>Email</p>
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-9">
                         <p>{{employee.phone_number}}</p>
                         <p>{{employee.email}}</p>
                       </div>
@@ -55,11 +55,11 @@ body {
     background-color: #eee
 }
 
-#collapseExample .row .col-md-4:first-child p {
+#collapseExample .row .col-md-3:first-child p {
   text-align: left;
 }
 
-#collapseExample .row .col-md-8:last-child p {
+#collapseExample .row .col-md-9:last-child p {
   text-align: right;
 }
 
