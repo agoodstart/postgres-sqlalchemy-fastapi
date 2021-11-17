@@ -4,7 +4,7 @@ from sqlalchemy.orm.session import Session
 
 from api import deps
 from api.crud import employee
-from api.schemas.employee import Employee, Manager, Joined, EmployeeCreate, EmployeeSmall
+from api.schemas.employee import Employee, Manager, Joined, EmployeeCreate, EmployeeSmall, EmployeeFull
 
 employee_router = APIRouter(
     prefix="/employees"
@@ -48,7 +48,7 @@ def create_employee_entry(
     new_employee = employee.create_new_employee_entry(entry_in, db)
     return new_employee
 
-@employee_router.get('/{employee_id}', status_code=200, response_model=Employee)
+@employee_router.get('/{employee_id}', status_code=200, response_model=EmployeeFull)
 def get_employee_by_id(
     employee_id: int, db: Session = Depends(deps.get_db)
 ):

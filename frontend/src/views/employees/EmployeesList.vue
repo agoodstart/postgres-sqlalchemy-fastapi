@@ -1,11 +1,16 @@
 <template>
   <section class="employee-list container">
+      <div class="button-position">
+<a href="#" class="btn btn-primary">Add new</a>
+      </div>
+      
     <div class="input-group">
       <input type="text" v-model="search" class="form-control" aria-label="Text input" placeholder="Filter employee by name" />
       <select v-model="select" class="form-select" id="inputGroupSelect01">
         <option selected value="full_name">Full Name</option>
         <option value="job_title">Job Title</option>
       </select>
+      
     </div>
   <div class="results">
     <div class="row">
@@ -25,6 +30,13 @@
 </template>
 
 <style scoped>
+.button-position {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+}
+
 .results {
   margin-top: 3rem;
   height: 500px;

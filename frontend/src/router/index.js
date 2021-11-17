@@ -9,13 +9,20 @@ const routes = [
   },
   {
     path: '/employees',
-    name: 'Employees',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Employees.vue'),
-  },
-  {
-    path: '/employees/:id',
-    name: 'Single Employee',
-    component: () => import(/* webpackChunkName: "about" */ '../views/SingleEmployee.vue')
+    name: 'Employees Page',
+    component: () => import(/* webpackChunkName: "about" */ '../views/employees/EmployeesPage.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Employee List',
+        component: () => import(/* webpackChunkName: "about" */ '../views/employees/EmployeesList.vue'),
+      },
+      {
+        path: '/employees/:id',
+        name: 'Single Employee',
+        component: () => import(/* webpackChunkName: "about" */ '../views/employees/SingleEmployee.vue')
+      },
+    ]
   },
   {
     path: '/countries',

@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
+import '@fortawesome/fontawesome-free'
 import 'bootstrap'
 
 import axios from 'axios'
@@ -15,4 +16,3 @@ let app = createApp(App)
 
 app.use(router)
 app.mount("#app")
-// app.config.compilerOptions.isCustomElement = div => div === 'Fragment'

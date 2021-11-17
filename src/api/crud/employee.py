@@ -12,6 +12,10 @@ def get_employees_from_small_list(db: Session):
     els = Mdata.tables['employee_list_small']
     return db.query(els).all()
 
+def get_employees_from_full_list(db: Session):
+    efl = Mdata.tables['employee_full_list']
+    return db.query(efl).all()
+
 def filter_from_small_list(select: str, search, db: Session):
     els = Mdata.tables['employee_list_small']
     list = []
@@ -27,25 +31,16 @@ def get_the_president(db: Session):
     return db.query(Employee).filter(Employee.job_id == 4).first()
 
 def get_employee_row(employee_id: int, db: Session):
-    return db.query(Employee).filter(Employee.employee_id == employee_id).first()
+    efl = Mdata.tables['employee_full_list']
+    return db.query(efl).filter(efl.c.employee_id == employee_id).first()
 
 def get_view(db: Session):
     views = Mdata.tables['joined_view']
     return db.query(views).all()
 
-def get_random_employee(db: Session):
-    return db.query(Employee).order_by(functions.random()).first()
-
 def get_random_employee_from_view(db: Session):
     views = Mdata.tables['joined_view']
     return db.query(views).order_by(functions.random()).first()
-
-def search_employee(query: str, db: Session):
-    list = []
-    for query in db.query(Employee).filter(Employee.last_name.ilike(f"%{query}%")):
-        list.append(query)
-    
-    return list
 
 def create_new_employee_entry(entry: EmployeeCreate, db: Session):
     entry = Employee(
