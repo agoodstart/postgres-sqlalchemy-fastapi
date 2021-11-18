@@ -31,5 +31,5 @@ def create_admin_signup(
     *,
     db: Session = Depends(deps.get_db),
     admin_in: AdminCreate,
-) -> Admin:
+):
     return admin.create_admin(db=db, admin_in=admin_in)

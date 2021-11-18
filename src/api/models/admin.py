@@ -1,4 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.sql.expression import null
 from sqlalchemy.sql.sqltypes import Date
 from sqlalchemy.types import DateTime
 import datetime
@@ -13,5 +14,5 @@ class Admin(Base):
     admin_password = Column(String, nullable=False)
     
     
-    created_on = Column(DateTime(timezone=True), nullable=False, index=False)
-    last_login = Column(DateTime(timezone=True), index=False)
+    created_on = Column(DateTime(timezone=True), nullable=False, default=datetime.datetime.utcnow)
+    last_login = Column(DateTime(timezone=True), nullable=True)

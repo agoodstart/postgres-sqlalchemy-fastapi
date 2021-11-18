@@ -2,14 +2,14 @@ from datetime import date
 from typing import List, Optional, Sequence
 from datetime import datetime
 
-from pydantic import BaseModel
+from .base import BaseConfig
 
-class AdminCreate(BaseModel):
+class AdminCreate(BaseConfig):
     admin_email: str
     admin_password: str
 
-class Admin(BaseModel):
+class Admin(BaseConfig):
     admin_email: str
     created_on: datetime
-    last_login: datetime
+    last_login: Optional[datetime] = None
 
