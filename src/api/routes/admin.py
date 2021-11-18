@@ -7,7 +7,7 @@ from api.crud import admin
 from api.schemas.admin import Admin, AdminCreate
 
 admin_router = APIRouter(
-    prefix="/auth",
+    prefix="/api/v1/auth",
     tags=["admin"]
 )
 

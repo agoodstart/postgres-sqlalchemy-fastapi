@@ -10,7 +10,7 @@ import router from './router'
 
 
 // fastapi
-axios.defaults.baseURL = 'http://localhost:8000/'
+axios.defaults.baseURL = 'http://localhost:8000/api/v1'
 
 let app = createApp(App)
 

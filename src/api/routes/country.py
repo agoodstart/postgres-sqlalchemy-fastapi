@@ -7,7 +7,7 @@ from api.crud import country
 from api.schemas.country import Country
 
 country_router = APIRouter(
-    prefix="/countries",
+    prefix="/api/v1/countries",
     tags=["countries"]
 )
 

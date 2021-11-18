@@ -7,7 +7,7 @@ from api.crud import job
 from api.schemas.job import Job
 
 job_router = APIRouter(
-    prefix="/jobs"
+    prefix="/api/v1/jobs"
 )
 
 @job_router.get('/', status_code=200, response_model=List[Job])

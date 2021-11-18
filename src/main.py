@@ -1,7 +1,7 @@
 from typing import Any
 from sqlalchemy.orm.session import Session
 
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI, APIRouter, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.routing import APIRouter
 from sqlalchemy.sql.selectable import Join
@@ -27,6 +27,10 @@ app = FastAPI(
     title="Fullstack",
 )
 
+root = APIRouter(
+    prefix="/api/v1"
+)
+
 origins = [
     "http://localhost:8080",
 ]
@@ -46,8 +50,10 @@ app.include_router(department_router)
 app.include_router(job_router)
 app.include_router(employee_router)
 
-@app.get("/", status_code=200, response_model=Joined)
+@root.get("/", status_code=200, response_model=Joined)
 async def index(
     request: Request, db: Session = Depends(deps.get_db)
 ) -> Any:
     return get_random_employee_from_view(db)
+
+app.include_router(root)
