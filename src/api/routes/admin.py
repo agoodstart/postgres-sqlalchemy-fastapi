@@ -7,11 +7,11 @@ from api.crud import admin
 from api.schemas.admin import Admin, AdminCreate
 
 admin_router = APIRouter(
-    prefix="/",
+    prefix="/auth",
     tags=["admin"]
 )
 
-@admin_router.post('/login', status_code=201, response_model=Admin)
+@admin_router.post('/signup', status_code=201, response_model=Admin)
 def create_admin_signup(
     *,
     db: Session = Depends(deps.get_db),
