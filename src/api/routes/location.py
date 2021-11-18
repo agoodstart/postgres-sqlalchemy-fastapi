@@ -7,7 +7,8 @@ from api.crud import location
 from api.schemas.location import Location
 
 location_router = APIRouter(
-    prefix="/api/v1/locations"
+    prefix="/api/v1/locations",
+    tags=["locations"]
 )
 
 @location_router.get('/', status_code=200, response_model=List[Location])

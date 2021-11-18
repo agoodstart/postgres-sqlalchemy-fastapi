@@ -7,7 +7,8 @@ from api.crud import employee
 from api.schemas.employee import Employee, Manager, Joined, EmployeeCreate, EmployeeSmall, EmployeeFull
 
 employee_router = APIRouter(
-    prefix="/api/v1/employees"
+    prefix="/api/v1/employees",
+    tags=["employees"]
 )
 
 @employee_router.get('/', status_code=200, response_model=List[EmployeeSmall])

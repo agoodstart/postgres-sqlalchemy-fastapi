@@ -7,7 +7,8 @@ from api.crud import region
 from api.schemas.region import Region
 
 region_router = APIRouter(
-    prefix="/api/v1/regions"
+    prefix="/api/v1/regions",
+    tags=["regions"]
 )
 
 @region_router.get('/', status_code=200, response_model=List[Region])

@@ -7,7 +7,8 @@ from api.crud import department
 from api.schemas.department import Department
 
 department_router = APIRouter(
-    prefix="/api/v1/departments"
+    prefix="/api/v1/departments",
+    tags=["departments"]
 )
 
 @department_router.get('/', status_code=200, response_model=List[Department])

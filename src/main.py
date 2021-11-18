@@ -14,6 +14,8 @@ from api.db.session import database
 from api.crud.employee import get_random_employee_from_view
 from api.schemas.employee import Joined
 
+from api.routes.admin import admin_router
+
 from api.routes.employee import employee_router
 from api.routes.region import region_router
 from api.routes.job import job_router
@@ -43,6 +45,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(admin_router)
 app.include_router(region_router)
 app.include_router(country_router)
 app.include_router(location_router)
