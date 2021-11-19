@@ -1,4 +1,4 @@
-import createPersistedState from "vuex-persistedstate";
+import createPersistedState from 'vuex-persistedstate';
 import {createStore} from 'vuex';
 
 import admins from './modules/admins';
@@ -6,7 +6,8 @@ import admins from './modules/admins';
 const store = createStore({
     modules: {
         admins
-    }
+    },
+    plugins: [createPersistedState()]
 })
 
 export default store;
