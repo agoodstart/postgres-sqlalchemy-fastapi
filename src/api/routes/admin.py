@@ -38,7 +38,7 @@ def login(
     db: Session = Depends(deps.get_db),
     admin_form: OAuth2PasswordRequestForm = Depends()
 ):
-    admin = validate_admin(admin_form)
+    admin = validate_admin(db=db, form_data=admin_form)
 
     if not admin:
         raise HTTPException(
@@ -64,7 +64,12 @@ def login(
         secure=False
     )
 
-    return response
+    return {
+        "access_token": token,
+        "token_type": "bearer"
+    }
+
+    # return response
 
 @admin_router.get('/me', response_model=Admin, dependencies=[Depends(get_current_admin)])
 def read_admins_me(current_admin: Admin = Depends(get_current_admin)):

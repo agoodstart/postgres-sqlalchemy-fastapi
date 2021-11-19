@@ -11,6 +11,8 @@ from jose import JWTError, jwt
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
 
+from api import deps
+
 from api.schemas.token import TokenData
 from api.schemas.admin import AdminCreate as AdminCreateSchema
 from api.models.admin import Admin as AdminModel
@@ -37,9 +39,10 @@ class OAuth2PasswordBearerCookie(OAuth2):
 
     async def __call__(self, request: Request) -> Optional[str]:
         authorization: str = request.cookies.get("Authorization")
+        
         scheme, param = get_authorization_scheme_param(authorization)
 
-        if not authorization or scheme.lower != "bearer":
+        if not authorization or scheme.lower() != "bearer":
             if self.auto_error:
                 raise HTTPException(
                     status_code=401,
@@ -66,7 +69,9 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 
     return encoded_jwt
 
-def get_current_admin(token: str = Depends(security)):
+async def get_current_admin(
+    db: Session = Depends(deps.get_db),
+    token: str = Depends(security)):
     credentials_exception = HTTPException(
         status_code=401,
         detail="Could not validate credentials",
@@ -75,6 +80,7 @@ def get_current_admin(token: str = Depends(security)):
 
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        print(payload)
         admin_email: str = payload.get("sub")
         if admin_email is None:
             raise credentials_exception
@@ -83,7 +89,7 @@ def get_current_admin(token: str = Depends(security)):
         raise credentials_exception
     
     try:
-        user = search_admin(Session, token_data.admin_email)
+        user = search_admin(db, token_data.admin_email)
     except NoResultFound:
         raise credentials_exception
 

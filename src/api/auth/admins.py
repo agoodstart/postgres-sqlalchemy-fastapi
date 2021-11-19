@@ -18,8 +18,8 @@ def verify_password(plain_password, hashed_password):
 def get_password_hash(password):
     return pwd_context.hash(password)
 
-def get_admin(admin_email: str):
-    return search_admin(email=admin_email)
+def get_admin(db: Session, admin_email: str):
+    return search_admin(db=db, email=admin_email)
 
 # def validate_admin(
 #     *,
@@ -42,9 +42,9 @@ def get_admin(admin_email: str):
 
 #     return entry
 
-def validate_admin(form_data: OAuth2PasswordRequestForm = Depends()):
+def validate_admin(db: Session, form_data: OAuth2PasswordRequestForm = Depends()):
     try:
-        entry = get_admin(form_data.username)
+        entry = get_admin(db, form_data.username)
     except NoResultFound:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

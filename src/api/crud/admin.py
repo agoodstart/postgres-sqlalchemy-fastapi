@@ -10,9 +10,8 @@ from api.schemas.admin import Admin as AdminSchema, AdminCreate as AdminSchemaCr
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-def search_admin(email: str):
-    db = Session
-    db.query(AdminModel).filter(AdminModel.admin_email == email).first()
+def search_admin(db: Session, email: str):
+    return db.query(AdminModel).filter(AdminModel.admin_email == email).first()
 
 def create_admin(db: Session, *, admin_in: AdminSchemaCreate) -> AdminSchema:
     admin_in.admin_password = pwd_context.encrypt(admin_in.admin_password)
