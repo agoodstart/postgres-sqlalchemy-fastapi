@@ -1,5 +1,41 @@
 <template>
+  <div class="card">
+    <div class="card-body">
+        <img src="../assets/generic_profile_pic.png" class="rounded" width="100">
+      <Form @submit="handleRegister" :validation-schema="schema">
+        <div v-if="!successful">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <Field name="email" type="email" class="form-control" />
+            <ErrorMessage name="email" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <Field name="password" type="password" class="form-control" />
+            <ErrorMessage name="password" class="error-feedback" />
+          </div>
 
+          <div class="form-group">
+            <button class="btn btn-primary btn-block" :disabled="loading">
+              <span
+                v-show="loading"
+                class="spinner-border spinner-border-sm"
+              ></span>
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </Form>
+
+      <div
+        v-if="message"
+        class="alert"
+        :class="successful ? 'alert-success' : 'alert-danger'"
+      >
+        {{ message }}
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

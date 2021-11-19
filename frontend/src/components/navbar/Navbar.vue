@@ -40,7 +40,7 @@ export default {
         </ul>
         <div class="col-md-2 d-flex justify-content-around">
             <a href="/login" class="btn btn-primary btn-lg">Login</a>
-          <a href="#" class="btn btn-secondary btn-lg">Sign up</a>
+          <a href="/signup" class="btn btn-secondary btn-lg">Sign up</a>
         </div>
         
       </div>
