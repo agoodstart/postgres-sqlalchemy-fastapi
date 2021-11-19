@@ -51,7 +51,7 @@ class OAuth2PasswordBearerCookie(OAuth2):
         
         return param
 
-security = OAuth2PasswordBearerCookie(token_url="/login")
+security = OAuth2PasswordBearerCookie(token_url="/api/v1/auth/login")
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()

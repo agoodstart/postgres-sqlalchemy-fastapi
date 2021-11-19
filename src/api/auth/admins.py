@@ -4,6 +4,8 @@ from passlib.context import CryptContext
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm import Session
 
+from api import deps
+
 from api.models.admin import Admin as AdminModel
 from api.schemas.admin import Admin as AdminSchema
 from api.crud.admin import search_admin
@@ -17,7 +19,28 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 def get_admin(admin_email: str):
-    return search_admin(Session, admin_email)
+    return search_admin(email=admin_email)
+
+# def validate_admin(
+#     *,
+#     admin_email: str,
+#     admin_password: str
+# ):
+#     try:
+#         entry = get_admin(admin_email)
+#     except NoResultFound:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="Incorrect email"
+#         )
+    
+#     if not verify_password(admin_password, entry.admin_password):
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="Incorrect password"
+#         )
+
+#     return entry
 
 def validate_admin(form_data: OAuth2PasswordRequestForm = Depends()):
     try:
